@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">EffectiveMobileTestCase</string>
+
+    <!--Login screen-->
+    <string name="login_screen_title">Вход</string>
+    <string name="name">Имя</string>
+    <string name="secondName">Фамилия</string>
+    <string name="userNumber">Номер телефона</string>
 </resources>
