@@ -3,7 +3,9 @@
 
     <!--Login screen-->
     <string name="login_screen_title">Вход</string>
-    <string name="name">Имя</string>
+    <string name="firstName">Имя</string>
     <string name="secondName">Фамилия</string>
     <string name="userNumber">Номер телефона</string>
+    <string name="input">Войти</string>
+
 </resources>
