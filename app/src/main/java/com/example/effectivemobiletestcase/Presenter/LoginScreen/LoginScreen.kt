@@ -1,4 +1,4 @@
-package com.example.effectivemobiletestcase.Presenter
+package com.example.effectivemobiletestcase.Presenter.LoginScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,23 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,66 +45,29 @@ fun LoginScreen() {
         )
     }
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        var firstName by remember { mutableStateOf("") }
-        var lastName by remember { mutableStateOf("") }
-        var phoneNumber by remember { mutableStateOf("") }
-
-        OutlinedTextField(
-            value = firstName,
-            onValueChange = { firstName = it },
-            label = {
-                Text(
-                    stringResource(id = R.string.firstName),
-                    style = TextStyle(fontSize = 16.sp),
-                )
-            },
-            textStyle = TextStyle(fontSize = 16.sp),
-            modifier = Modifier.fillMaxWidth()
-        )
+        NameInputValidation()
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        OutlinedTextField(
-            value = lastName,
-            onValueChange = { lastName = it },
-            label = {
-                Text(
-                    stringResource(id = R.string.secondName),
-                    style = TextStyle(fontSize = 16.sp),
-                )
-            },
-            textStyle = TextStyle(fontSize = 16.sp),
-            modifier = Modifier.fillMaxWidth()
-        )
+        LastNameInputValidation()
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        OutlinedTextField(
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
-            label = {
-                Text(
-                    stringResource(id = R.string.userNumber),
-                    style = TextStyle(fontSize = 16.sp),
-                )
-            },
-            textStyle = TextStyle(fontSize = 16.sp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-            modifier = Modifier.fillMaxWidth()
-        )
+        PhoneVisualTransformation()
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = { /* Действие при нажатии */ },
-            modifier = Modifier.fillMaxWidth().height(50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
             shape = RoundedCornerShape(size = 8.dp),
             colors = ButtonDefaults.buttonColors(containerColor = light_pink)
         ) {
@@ -150,5 +106,4 @@ fun LoginScreen() {
 
         )
     }
-
 }
