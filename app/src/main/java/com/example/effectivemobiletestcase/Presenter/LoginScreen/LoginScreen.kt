@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,8 +41,12 @@ fun LoginScreen() {
     ){
         Text(
             text = stringResource(R.string.login_screen_title),
-            style = TextStyle(fontSize = 16.sp),
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            style = TextStyle(fontSize = 16.sp,
+                lineHeight = 20.8.sp,
+                fontWeight = FontWeight(500)),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(vertical = 15.dp)
         )
     }
 

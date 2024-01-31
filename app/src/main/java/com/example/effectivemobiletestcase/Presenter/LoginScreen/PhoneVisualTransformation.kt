@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.effectivemobiletestcase.R
+import com.example.effectivemobiletestcase.ui.theme.black
 
 
 @Preview
@@ -36,6 +37,7 @@ fun PhoneVisualTransformation() {
             )
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+        textStyle = TextStyle(fontSize = 16.sp, color = black),
         modifier = Modifier.fillMaxWidth(),
         visualTransformation = {
             mobileNumberFilter(it)
