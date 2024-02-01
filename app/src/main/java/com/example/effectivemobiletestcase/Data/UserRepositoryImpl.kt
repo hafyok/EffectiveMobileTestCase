@@ -1,6 +1,6 @@
 package com.example.effectivemobiletestcase.Data
 
-import com.example.effectivemobiletestcase.Domain.UserData
+import com.example.effectivemobiletestcase.Domain.UserEntity
 import com.example.effectivemobiletestcase.Domain.UserRepository
 
 class UserRepositoryImpl(
@@ -10,7 +10,7 @@ class UserRepositoryImpl(
     override suspend fun getUser(id: Int) = userDao.getUser(id)
 
 
-    override suspend fun addUser(user: UserData) = userDao.addUser(user)
+    override suspend fun addUser(user: UserEntity) = userDao.addUser(user)
 
-    override suspend fun deleteUser(user: UserData) = userDao.deleteUser(user)
+    override suspend fun deleteUser(user: UserEntity) = userDao.deleteUser(user)
 }

@@ -1,7 +1,6 @@
 package com.example.effectivemobiletestcase.Presenter.LoginScreen
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +14,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.effectivemobiletestcase.Domain.canEnter
 import com.example.effectivemobiletestcase.R
 import com.example.effectivemobiletestcase.ui.theme.grey
@@ -41,7 +42,8 @@ import com.example.effectivemobiletestcase.ui.theme.white
 @SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
-fun LoginScreen() {
+fun LoginScreen(loginViewModel: LoginViewModel = viewModel(factory = LoginViewModel.factory)) {
+    //val listNames = loginViewModel.itemsList.collectAsState(initial = emptyList())
     var btnCanEnter by remember {
         mutableStateOf(canEnter.isEnter)
     }
@@ -53,6 +55,8 @@ fun LoginScreen() {
     fun updateBtnCanEnter() {
         btnCanEnter = canEnter.isEnter
     }
+
+    //val viewModel: LoginViewModel = viewModel()
 
     Column(
         modifier = Modifier
@@ -97,13 +101,7 @@ fun LoginScreen() {
         }
         Button(
             onClick = {
-                Log.d("isEnter", "isEnter: ${canEnter.isEnter}")
-                Log.d("isEnter", "isValidateName: ${canEnter.isValidateName}")
-                Log.d("isEnter", "isValidateLastName: ${canEnter.isValidateLastName}")
-                Log.d("isEnter", "isValidatePhoneNumber: ${canEnter.isValidatePhoneNumber}")
-                Log.d("isEnter", "btnCanEnter: ${btnCanEnter}")
 
-                Log.d("isEnter", "btnColor: ${btnColor}")
             },
             modifier = Modifier
                 .fillMaxWidth()
