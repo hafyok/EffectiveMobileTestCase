@@ -22,15 +22,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.effectivemobiletestcase.Domain.canEnter
 import com.example.effectivemobiletestcase.R
 import com.example.effectivemobiletestcase.ui.theme.black
 
 
-@Preview
 @Composable
-fun PhoneVisualTransformation() {
+fun PhoneVisualTransformation(updateBtnCanEnter: () -> Unit) {
     var phoneNumber by rememberSaveable { mutableStateOf("") }
     val trailingIconView = @Composable {
         IconButton(
@@ -48,7 +47,17 @@ fun PhoneVisualTransformation() {
 
     OutlinedTextField(
         value = phoneNumber,
-        onValueChange = { phoneNumber = it },
+        onValueChange = {
+            phoneNumber = it
+            if (phoneNumber.length == 10) {
+                canEnter.isValidatePhoneNumber = true
+                updateBtnCanEnter()
+            }else {
+                canEnter.isValidatePhoneNumber = false
+                updateBtnCanEnter()
+            }
+            Log.d("isValidate", canEnter.isValidatePhoneNumber.toString())
+        },
         label = {
             Text(
                 stringResource(id = R.string.userNumber),
@@ -64,6 +73,7 @@ fun PhoneVisualTransformation() {
         trailingIcon = if (phoneNumber.isNotBlank()) trailingIconView else null
 
     )
+
 }
 
 //TODO: в поле номера телефона можно ввести букву, это надо исправить

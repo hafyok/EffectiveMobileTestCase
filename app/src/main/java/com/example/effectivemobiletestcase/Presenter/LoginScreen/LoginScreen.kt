@@ -1,5 +1,7 @@
 package com.example.effectivemobiletestcase.Presenter.LoginScreen
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +14,11 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,14 +31,28 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.effectivemobiletestcase.Domain.canEnter
 import com.example.effectivemobiletestcase.R
 import com.example.effectivemobiletestcase.ui.theme.grey
 import com.example.effectivemobiletestcase.ui.theme.light_pink
+import com.example.effectivemobiletestcase.ui.theme.pink
 import com.example.effectivemobiletestcase.ui.theme.white
 
+@SuppressLint("UnrememberedMutableState")
 @Preview
 @Composable
 fun LoginScreen() {
+    var btnCanEnter by remember {
+        mutableStateOf(canEnter.isEnter)
+    }
+
+    var btnColor by remember {
+        mutableStateOf(if (btnCanEnter) pink else light_pink)
+    }
+
+    fun updateBtnCanEnter() {
+        btnCanEnter = canEnter.isEnter
+    }
 
     Column(
         modifier = Modifier
@@ -56,25 +77,39 @@ fun LoginScreen() {
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        NameInputValidation()
+
+
+        NameInputValidation { updateBtnCanEnter() }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        LastNameInputValidation()
+        LastNameInputValidation { updateBtnCanEnter() }
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        PhoneVisualTransformation()
+        PhoneVisualTransformation { updateBtnCanEnter() }
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // Весьма тяжелый костыль
+        LaunchedEffect(btnCanEnter) {
+            btnColor = if (btnCanEnter) pink else light_pink
+        }
         Button(
-            onClick = { /* Действие при нажатии */ },
+            onClick = {
+                Log.d("isEnter", "isEnter: ${canEnter.isEnter}")
+                Log.d("isEnter", "isValidateName: ${canEnter.isValidateName}")
+                Log.d("isEnter", "isValidateLastName: ${canEnter.isValidateLastName}")
+                Log.d("isEnter", "isValidatePhoneNumber: ${canEnter.isValidatePhoneNumber}")
+                Log.d("isEnter", "btnCanEnter: ${btnCanEnter}")
+
+                Log.d("isEnter", "btnColor: ${btnColor}")
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
             shape = RoundedCornerShape(size = 8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = light_pink)
+            colors = ButtonDefaults.buttonColors(btnColor)
         ) {
             Text(stringResource(id = R.string.input), color = white)
         }
