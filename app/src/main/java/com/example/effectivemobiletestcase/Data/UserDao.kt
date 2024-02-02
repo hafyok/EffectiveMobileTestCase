@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
-    @Query("SELECT * FROM UserEntity")
+    @Query("SELECT * FROM users ORDER BY id ASC")
     fun getAllUsers(): Flow<List<UserEntity>>
 
-    @Query("SELECT * FROM UserEntity WHERE id = :id")
+    @Query("SELECT * FROM users WHERE id = :id")
     suspend fun getUser(id: Int): UserEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

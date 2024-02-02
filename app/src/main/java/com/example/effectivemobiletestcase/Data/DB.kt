@@ -7,21 +7,23 @@ import androidx.room.RoomDatabase
 import com.example.effectivemobiletestcase.Domain.UserEntity
 
 @Database(entities = [UserEntity::class], version = 1, exportSchema = false)
-abstract class DB : RoomDatabase() {
-    abstract val dao: UserDao
+abstract class UserDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
 
     companion object {
-        /*@Volatile
-        private var INSTANCE: DB? = null*/
+        @Volatile
+        private var INSTANCE: UserDatabase? = null
 
-        fun getDatabase(context: Context): DB {
-            return Room.databaseBuilder(
-                context,
-                DB::class.java,
-                "app_db"
-            ).build()
-            //INSTANCE = instance
-            //instance
+        fun getDatabase(context: Context): UserDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    UserDatabase::class.java,
+                    "user_database"
+                ).build()
+                INSTANCE = instance
+                instance
+            }
         }
     }
 }

@@ -1,29 +1,45 @@
 package com.example.effectivemobiletestcase.Presenter.LoginScreen
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.effectivemobiletestcase.App
-import com.example.effectivemobiletestcase.Data.DB
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.effectivemobiletestcase.Data.UserDatabase
+import com.example.effectivemobiletestcase.Data.UserRepositoryImpl
+import com.example.effectivemobiletestcase.Domain.UserEntity
+import com.example.effectivemobiletestcase.Domain.UserRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
-@Suppress("UNCHECKED_CAST")
-class LoginViewModel(database: DB): ViewModel() {
-    val itemsList = database.dao.getAllUsers()
-    companion object{
-        val factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory{
-            @Suppress("UNCHECKED_CAST")
-            override fun <T: ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras): T{
-                val database = (checkNotNull(extras[APPLICATION_KEY]) as App).database
-                return LoginViewModel(database) as T
+class LoginViewModel(application: Application): AndroidViewModel(application) {
+    private val repository: UserRepository
+
+    private val _allUsers = MutableStateFlow<List<UserEntity>>(emptyList())
+    val allUsers: StateFlow<List<UserEntity>> get() = _allUsers
+
+    init {
+        val userDao = UserDatabase.getDatabase(application).userDao()
+        repository = UserRepositoryImpl(userDao)
+        fetchUsers()
+    }
+
+    private fun fetchUsers() {
+        viewModelScope.launch {
+            repository.getAllUsers().collect {
+                _allUsers.value = it
             }
         }
     }
-    init {
-        //val taskDao = DB.getDatabase(application).dao()
 
+    fun addUser(user: UserEntity) {
+        viewModelScope.launch {
+            repository.addUser(user)
+        }
+    }
 
+    fun deleteUser(user: UserEntity) {
+        viewModelScope.launch {
+            repository.deleteUser(user)
+        }
     }
 }

@@ -2,15 +2,20 @@ package com.example.effectivemobiletestcase.Data
 
 import com.example.effectivemobiletestcase.Domain.UserEntity
 import com.example.effectivemobiletestcase.Domain.UserRepository
-
-class UserRepositoryImpl(
-    private val userDao: UserDao
-): UserRepository {
-
-    override suspend fun getUser(id: Int) = userDao.getUser(id)
+import kotlinx.coroutines.flow.Flow
 
 
-    override suspend fun addUser(user: UserEntity) = userDao.addUser(user)
+class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
+    override fun getAllUsers(): Flow<List<UserEntity>> = userDao.getAllUsers()
+    override suspend fun getUser(id: Int): UserEntity {
+        TODO("Not yet implemented")
+    }
 
-    override suspend fun deleteUser(user: UserEntity) = userDao.deleteUser(user)
+    override suspend fun addUser(user: UserEntity) {
+        userDao.addUser(user)
+    }
+
+    override suspend fun deleteUser(user: UserEntity) {
+        userDao.deleteUser(user)
+    }
 }

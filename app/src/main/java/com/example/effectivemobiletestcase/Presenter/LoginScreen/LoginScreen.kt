@@ -14,7 +14,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,10 +27,10 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.effectivemobiletestcase.Domain.UserEntity
 import com.example.effectivemobiletestcase.Domain.canEnter
 import com.example.effectivemobiletestcase.R
 import com.example.effectivemobiletestcase.ui.theme.grey
@@ -40,10 +39,11 @@ import com.example.effectivemobiletestcase.ui.theme.pink
 import com.example.effectivemobiletestcase.ui.theme.white
 
 @SuppressLint("UnrememberedMutableState")
-@Preview
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel = viewModel(factory = LoginViewModel.factory)) {
+fun LoginScreen(loginViewModel: LoginViewModel) {
     //val listNames = loginViewModel.itemsList.collectAsState(initial = emptyList())
+    val viewModel: LoginViewModel = viewModel()
+
     var btnCanEnter by remember {
         mutableStateOf(canEnter.isEnter)
     }
@@ -101,6 +101,14 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel(factory = LoginViewMo
         }
         Button(
             onClick = {
+                val newUser = UserEntity(
+                    id = 0, // You might want to generate this dynamically
+                    name = "John",
+                    secondName = "Doe",
+                    userNumber = "1234567890"
+                )
+                viewModel.addUser(newUser)
+
 
             },
             modifier = Modifier
