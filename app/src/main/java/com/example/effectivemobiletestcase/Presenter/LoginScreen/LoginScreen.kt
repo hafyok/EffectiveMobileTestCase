@@ -41,7 +41,6 @@ import com.example.effectivemobiletestcase.ui.theme.white
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel) {
-    //val listNames = loginViewModel.itemsList.collectAsState(initial = emptyList())
     val viewModel: LoginViewModel = viewModel()
 
     var btnCanEnter by remember {
@@ -55,8 +54,6 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
     fun updateBtnCanEnter() {
         btnCanEnter = canEnter.isEnter
     }
-
-    //val viewModel: LoginViewModel = viewModel()
 
     Column(
         modifier = Modifier
@@ -101,15 +98,15 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
         }
         Button(
             onClick = {
-                val newUser = UserEntity(
-                    id = 0, // You might want to generate this dynamically
-                    name = "John",
-                    secondName = "Doe",
-                    userNumber = "1234567890"
-                )
-                viewModel.addUser(newUser)
-
-
+                if(canEnter.isEnter){
+                    val newUser = UserEntity(
+                        id = 0,
+                        name = canEnter.userName,
+                        secondName = canEnter.userLastName,
+                        userNumber = canEnter.phoneNumber
+                    )
+                    viewModel.addUser(newUser)
+                }
             },
             modifier = Modifier
                 .fillMaxWidth()

@@ -5,6 +5,10 @@ object canEnter{
     var isValidateLastName = false
     var isValidatePhoneNumber = false
 
+    var userName: String = ""
+    var userLastName: String = ""
+    var phoneNumber: String = ""
+
     val isEnter: Boolean
         get() = isValidateLastName && isValidateName && isValidatePhoneNumber
 }

@@ -51,12 +51,12 @@ fun PhoneVisualTransformation(updateBtnCanEnter: () -> Unit) {
             phoneNumber = it
             if (phoneNumber.length == 10) {
                 canEnter.isValidatePhoneNumber = true
+                canEnter.phoneNumber = phoneNumber
                 updateBtnCanEnter()
             }else {
                 canEnter.isValidatePhoneNumber = false
                 updateBtnCanEnter()
             }
-            Log.d("isValidate", canEnter.isValidatePhoneNumber.toString())
         },
         label = {
             Text(

@@ -53,6 +53,7 @@ fun NameInputValidation(updateBtnCanEnter: () -> Unit) {
                 firstName = it
                 isError = false
                 canEnter.isValidateName = true
+                canEnter.userName = firstName
                 updateBtnCanEnter()
             }
         },
@@ -109,6 +110,7 @@ fun LastNameInputValidation(updateBtnCanEnter: () -> Unit) {
                 lastName = it
                 isError = false
                 canEnter.isValidateLastName = true
+                canEnter.userLastName = lastName
                 updateBtnCanEnter()
             }
         },
