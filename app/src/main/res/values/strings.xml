@@ -8,4 +8,11 @@
     <string name="userNumber">Номер телефона</string>
     <string name="input">Войти</string>
     <string name="trigger">Поле должно содержать только буквы кириллицы</string>
+
+    <!--Bottom-navigation menu-->
+    <string name="main_title">Главная</string>
+    <string name="catalog_title">Каталог</string>
+    <string name="basket_title">Корзина</string>
+    <string name="sale_title">Акции</string>
+    <string name="profile_title">Профиль</string>
 </resources>

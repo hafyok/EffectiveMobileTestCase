@@ -19,7 +19,8 @@ fun BottomNavigation(
         BottomItem.Screen1,
         BottomItem.Screen2,
         BottomItem.Screen3,
-        BottomItem.Screen4
+        BottomItem.Screen4,
+        BottomItem.Screen5
     )
     androidx.compose.material.BottomNavigation(
         backgroundColor = Color.White
