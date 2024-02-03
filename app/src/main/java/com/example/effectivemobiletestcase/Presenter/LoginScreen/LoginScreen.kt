@@ -30,9 +30,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.effectivemobiletestcase.Domain.UserEntity
 import com.example.effectivemobiletestcase.Domain.canEnter
 import com.example.effectivemobiletestcase.R
+import com.example.effectivemobiletestcase.Navigation.Screens
 import com.example.effectivemobiletestcase.ui.theme.grey
 import com.example.effectivemobiletestcase.ui.theme.light_pink
 import com.example.effectivemobiletestcase.ui.theme.pink
@@ -40,7 +42,7 @@ import com.example.effectivemobiletestcase.ui.theme.white
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel) {
+fun LoginScreen(navController: NavController) {
     val viewModel: LoginViewModel = viewModel()
 
     var btnCanEnter by remember {
@@ -106,6 +108,7 @@ fun LoginScreen(loginViewModel: LoginViewModel) {
                         userNumber = canEnter.phoneNumber
                     )
                     viewModel.addUser(newUser)
+                    navController.navigate(Screens.HomeScreenRoute.route)
                 }
             },
             modifier = Modifier
