@@ -1,15 +1,27 @@
 package com.example.effectivemobiletestcase.Navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.effectivemobiletestcase.Presenter.LoginScreen.LoginScreen
 
-fun NavGraphBuilder.authGraph(navController: NavController){
-    navigation(Screens.LoginScreenRoute.route, route = Screens.AuthRoute.route){
-        composable(route = Screens.LoginScreenRoute.route){
-            LoginScreen(navController = navController)
+fun NavGraphBuilder.authNavGraph(navHostController: NavHostController){
+    navigation(
+        route = Graph.AUTHENTICATION,
+        startDestination = AuthScreen.Login.route
+    ) {
+        composable(route = AuthScreen.Login.route) {
+            LoginScreen(
+                onClickHome = {
+                    navHostController.popBackStack()
+                    navHostController.navigate(Graph.HOME)
+                }
+            )
         }
     }
+}
+
+sealed class AuthScreen(val route: String) {
+    object Login : AuthScreen(route = "LOGIN")
 }
