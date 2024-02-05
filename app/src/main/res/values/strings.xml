@@ -15,4 +15,14 @@
     <string name="basket_title">Корзина</string>
     <string name="sale_title">Акции</string>
     <string name="profile_title">Профиль</string>
+
+    <!--Catalog screen-->
+    <string name="popularity_filter">По популярности</string>
+    <string name="filter">Фильтры</string>
+    <string name="look_all">Смотреть все</string>
+    <string name="face">Лицо</string>
+    <string name="body">Тело</string>
+    <string name="sun_skin">Загар</string>
+
+
 </resources>
